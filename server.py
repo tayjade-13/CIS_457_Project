@@ -1,21 +1,22 @@
 from socket import *
 
-#this is just the tcp server code from the slides
-
 serverPort = 12000
 serverSocket = socket(AF_INET,SOCK_STREAM)
 
+# optional line to quickly reuse the same port number, its not required for the project
+serverSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+
 serverSocket.bind(('',serverPort))
 serverSocket.listen(1)
-print('The server is ready to receive')
+print('The server is ready to receive.')
 
-
-while True:
-     connectionSocket, addr = serverSocket.accept()
+connectionSocket, addr = serverSocket.accept()
      
-     sentence = connectionSocket.recv(1024).decode()
-     capitalizedSentence = sentence.upper()
+message = connectionSocket.recv(1024).decode()
+print("Client:", message)
 
-     connectionSocket.send(capitalizedSentence.encode())
+reply = input("Enter message to client: ")
+connectionSocket.send(reply.encode())
     
-     connectionSocket.close()
+connectionSocket.close()
+serverSocket.close()
