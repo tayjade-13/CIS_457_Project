@@ -1,19 +1,15 @@
 from socket import *
 
-#this is just the tcp client code from the slides
-
-serverName = 'servername'
+serverName = 'local host'
 serverPort = 12000
 clientSocket = socket(AF_INET, SOCK_STREAM)
 
 clientSocket.connect((serverName,serverPort))
 
-sentence = input('Input lowercase sentence:')
-clientSocket.send(sentence.encode())
+message = input('Enter message to server: ')
+clientSocket.send(message.encode())
 
-modifiedSentence = clientSocket.recv(1024)
-
-print ('From Server:', modifiedSentence.decode())
+reply = clientSocket.recv(1024)
+print ('Server:', reply.decode())
 
 clientSocket.close()
-
