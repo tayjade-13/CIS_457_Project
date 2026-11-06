@@ -6,10 +6,19 @@ clientSocket = socket(AF_INET, SOCK_STREAM)
 
 clientSocket.connect((serverName,serverPort))
 
-message = input('Enter message to server: ')
-clientSocket.send(message.encode())
+def Talk():
+    message = input('Enter message to server: ')
 
-reply = clientSocket.recv(1024)
-print ('Server:', reply.decode())
+    if message == "QUIT":
+        quit_message = 'Client has disconnected.'
+        clientSocket.send(quit_message.encode())
+        clientSocket.close()
+        exit()
 
-clientSocket.close()
+    clientSocket.send(message.encode())
+
+    reply = clientSocket.recv(1024)
+    print ('Server:', reply.decode())
+    Talk()
+
+Talk()

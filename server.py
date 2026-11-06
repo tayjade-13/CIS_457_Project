@@ -1,3 +1,4 @@
+from email import message
 from socket import *
 
 serverPort = 12000
@@ -11,12 +12,23 @@ serverSocket.listen(1)
 print('The server is ready to receive.')
 
 connectionSocket, addr = serverSocket.accept()
-     
-message = connectionSocket.recv(1024).decode()
-print("Client:", message)
 
-reply = input("Enter message to client: ")
-connectionSocket.send(reply.encode())
-    
-connectionSocket.close()
-serverSocket.close()
+def Talk():
+    message = connectionSocket.recv(1024).decode()
+    print("Client:", message)
+
+    reply = input("Enter message to client: ")
+
+    if reply == "QUIT":
+        quit_reply = 'Server has disconnected.'
+        connectionSocket.send(quit_reply.encode())
+
+        connectionSocket.close()
+        serverSocket.close()
+        exit()
+
+    connectionSocket.send(reply.encode())
+    Talk()
+
+
+Talk()
