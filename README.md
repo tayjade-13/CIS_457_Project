@@ -1,5 +1,7 @@
-Download the server and client files.
-Open a split terminal.
-On one side, run command: python server.py
-On the other, run command: python client.py
-Once connection is established, enter the message to server from the client side. Once sent, enter message to client from the server side. Afterwards, the connection should close.
+- Download the server, client, and log files.
+- Open 3 terminals.
+- First, run `python log.py` in the first terminal to display the shared chat log.
+- Next, run `python server.py` in the second terminal.
+- Then, run `python client.py` in the third terminal.
+- Once connection is established, send messages as usual from either the server or client.
+- Type QUIT in the client or server terminal to end the chat.

@@ -4,6 +4,9 @@ import threading
 
 serverName = 'localhost'
 serverPort = 12000
+logPort = 12001
+logSocket = socket(AF_INET, SOCK_STREAM)
+logSocket.connect((serverName,logPort))
 clientSocket = socket(AF_INET, SOCK_STREAM)
 
 clientSocket.connect((serverName,serverPort))
@@ -13,10 +16,13 @@ def send_message():
 
     if message == "QUIT":
         quit_message = 'Client has disconnected.'
+        logSocket.send(('Client: ' + quit_message + '\n').encode())
         clientSocket.send(quit_message.encode())
         clientSocket.close()
+        logSocket.close()
         exit()
 
+    logSocket.send(('Client: ' + message + '\n').encode())
     clientSocket.send(message.encode())
     send_message()
 

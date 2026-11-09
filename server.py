@@ -3,6 +3,9 @@ from socket import *
 import threading
 
 serverPort = 12000
+logPort = 12001
+logSocket = socket(AF_INET,SOCK_STREAM)
+logSocket.connect(('localhost',logPort))
 serverSocket = socket(AF_INET,SOCK_STREAM)
 
 # optional line to quickly reuse the same port number, its not required for the project
@@ -24,11 +27,14 @@ def send_reply():
 
     if reply == "QUIT":
         quit_reply = 'Server has disconnected.'
+        logSocket.send(('Server: ' + quit_reply + '\n').encode())
         connectionSocket.send(quit_reply.encode())
         connectionSocket.close()
         serverSocket.close()
+        logSocket.close()
         exit()
 
+    logSocket.send(('Server: ' + reply + '\n').encode())
     connectionSocket.send(reply.encode())
     send_reply()
 
