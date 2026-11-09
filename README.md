@@ -4,4 +4,5 @@
 - Next, run `python server.py` in the second terminal.
 - Then, run `python client.py` in the third terminal.
 - Once connection is established, send messages as usual from either the server or client.
+- View all messages in order from the log file.
 - Type QUIT in the client or server terminal to end the chat.
