@@ -19,7 +19,7 @@ connectionSocket, addr = serverSocket.accept()
 
 def recieve_message():
     message = connectionSocket.recv(1024).decode()
-    print("\nClient:", message)
+    #print("\nClient:", message)
     recieve_message()
 
 def send_reply():

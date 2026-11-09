@@ -28,7 +28,7 @@ def send_message():
 
 def receive_reply():
     reply = clientSocket.recv(1024)
-    print ('\nServer:', reply.decode())
+    #print ('\nServer:', reply.decode())
     receive_reply()
 
 send = threading.Thread(target=send_message)
